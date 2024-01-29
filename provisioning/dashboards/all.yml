@@ -1,0 +1,6 @@
+- name: 'Elasticsearch'
+  org_id: 1
+  folder: ''
+  type: 'file'
+  options:
+    path: '/var/lib/grafana/dashboards'
