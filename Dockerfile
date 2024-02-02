@@ -20,8 +20,8 @@ RUN mv node_exporter-*/node_exporter /bin
 RUN apt-get install -y apt-transport-https software-properties-common wget
 RUN wget https://dl.grafana.com/enterprise/release/grafana-enterprise-10.3.1.linux-amd64.tar.gz
 # RUN tar -zxvf /usr/sbin/grafana-enterprise-10.3.1.linux-amd64.tar.gz 
-RUN tar -xvf grafana-enterprise-10.3.1.linux-amd64.tar.gz grafana-v10.3.1/bin
-RUN mv grafana-*/bin/* /bin
+RUN tar -zxvf grafana-enterprise-10.3.1.linux-amd64.tar.gz
+RUN cp grafana-*/bin/* /bin
 
 RUN wget https://github.com/EdRamos12/elasticsearch-grafana-monitoring/raw/master/config.ini -P /etc/grafana/
 RUN wget https://github.com/EdRamos12/elasticsearch-grafana-monitoring/raw/master/provisioning/dashboards/all.yml -P /etc/grafana/provisioning/dashboards
@@ -38,6 +38,11 @@ RUN mv elasticsearch_exporter-*/elasticsearch_exporter /bin
 
 # Copy supervisord configuration file
 RUN wget https://github.com/EdRamos12/elasticsearch-grafana-monitoring/raw/master/supervisord.conf -P /etc/supervisor/conf.d/
+
+# debugging purposes
+# COPY supervisord.conf /etc/supervisor/conf.d/
+
+EXPOSE 3000/tcp
 
 # Start supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
