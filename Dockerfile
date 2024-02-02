@@ -37,10 +37,10 @@ RUN tar -xzf elasticsearch_exporter-1.7.0.linux-amd64.tar.gz
 RUN mv elasticsearch_exporter-*/elasticsearch_exporter /bin
 
 # Copy supervisord configuration file
-RUN wget https://github.com/EdRamos12/elasticsearch-grafana-monitoring/raw/master/supervisord.conf -P /etc/supervisor/conf.d/
+# RUN wget https://github.com/EdRamos12/elasticsearch-grafana-monitoring/raw/master/supervisord.conf -P /etc/supervisor/conf.d/
 
 # debugging purposes
-# COPY supervisord.conf /etc/supervisor/conf.d/
+COPY supervisord.conf /etc/supervisor/conf.d/
 
 EXPOSE 3000/tcp
 
