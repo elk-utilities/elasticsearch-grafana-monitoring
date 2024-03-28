@@ -38,7 +38,11 @@ RUN mv elasticsearch_exporter-*/elasticsearch_exporter /bin
 # Copy supervisord configuration file
 COPY supervisord.conf /etc/supervisor/conf.d/
 
+COPY run_instance.sh /bin
+
+RUN chmod +x /bin/run_instance.sh
+
 EXPOSE 3000/tcp
 
 # Start supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/bin/run_instance.sh"]

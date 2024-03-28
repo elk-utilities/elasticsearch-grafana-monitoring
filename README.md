@@ -4,26 +4,38 @@ This project sets up a monitoring solution for Elasticsearch using Prometheus an
 
 ## Prerequisites
 
-Before you begin, make sure you have Docker installed on your system.
+Before you begin, make sure you have [Docker](https://docs.docker.com/get-docker/) installed on your system.
 
 ## Usage
 
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/EdRamos12/elasticsearch-grafana-monitoring.git
+git clone https://github.com/elk-utilities/elasticsearch-grafana-monitoring.git
 cd elasticsearch-grafana-monitoring
+
+# You can build the docker image without copying the entire repository to your 
+# local machine
 ```
 
-2. Copy the .env.example file and update it with your Elasticsearch credentials:
+2. Build the docker image for usage later
 ```bash
-cp .env.example .env
+docker build -t elasticsearch-grafana-monitoring .
+
+# Or build the image from the remote repository
+
+docker build -t elasticsearch-grafana-monitoring https://github.com/elk-utilities/elasticsearch-grafana-monitoring.git
 ```
 Edit the .env file with your Elasticsearch username, password, and URL.
 
-3. Run the monitoring stack using Docker Compose:
+3. Run the monitoring stack using Docker:
 ```bash
-docker-compose up -d
+docker run -e ELASTIC_USER=your_username \
+-e ELASTIC_PASSWORD=your_password \
+-e ELASTIC_URL=https://your-elasticsearch-url \
+--name your_monitoring_instance_name \
+-p 3000:3000 \
+elasticsearch-grafana-monitoring
 ```
 This will start Prometheus, Grafana, Node Exporter, and Elasticsearch Exporter containers.
 
