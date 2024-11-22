@@ -46,6 +46,8 @@ COPY run_instance.sh /bin
 
 RUN chmod +x /bin/run_instance.sh
 
+ENV DEBUG=false
+
 EXPOSE 3000/tcp
 EXPOSE 9090/tcp
 

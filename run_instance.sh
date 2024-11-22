@@ -25,6 +25,11 @@ if [ -z "$PROTOCOL" ]; then
   export PROTOCOL
 fi
 
+if [ "$DEBUG" == "true" ]; then
+    echo "DEBUG mode enabled. Adding additional args for elasticsearch_exporter..."
+    sed -i '/command=\/bin\/elasticsearch_exporter/ s/$/ --collector.clustersettings --es.aliases --collector.snapshots --es.data_stream/' /etc/supervisor/conf.d/supervisord.conf
+fi
+
 echo "Initializing monitoring instance..."
 
 /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
